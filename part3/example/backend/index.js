@@ -38,6 +38,7 @@ const unknownEndpoint = (request, response) => {
 
 app.use(cors())
 
+app.use(express.static('dist'))
 
 // funcion
 const generateId = () => {
