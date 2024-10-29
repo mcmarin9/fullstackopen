@@ -73,6 +73,20 @@ app.delete("/api/notes/:id", (request, response) => {
   response.status(204).end; // 204 no content
 });
 
+app.put('/api/notes/:id', (request, response) => {
+  const id = Number(request.params.id);
+  const note = notes.find(note => note.id === id);
+
+  if (!note) {
+    return response.status(404).send({ error: 'Note not found' });
+  }
+
+  const updatedNote = { ...note, ...request.body };
+  notes = notes.map(note => (note.id === id ? updatedNote : note));
+
+  response.json(updatedNote);
+});
+
 app.post("/api/notes", (request, response) => {
   const body = request.body;
 
