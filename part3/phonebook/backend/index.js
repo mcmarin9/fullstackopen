@@ -36,10 +36,6 @@ let persons = [
   },
 ];
 
-app.get('/', (request, response) => {
-  response.send('<h1>Welcome to the Phonebook API by MariCarmen</h1>');
-});
-
 app.get("/api/persons", (request, response) => {
   response.json(persons);
 });
