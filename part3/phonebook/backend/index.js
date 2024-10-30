@@ -11,6 +11,7 @@ app.use(
 );
 
 app.use(cors());
+app.use(express.static('dist'))
 
 let persons = [
   {
@@ -34,6 +35,10 @@ let persons = [
     number: "39-23-6423122",
   },
 ];
+
+app.get('/', (request, response) => {
+  response.send('<h1>Welcome to the Phonebook API by MariCarmen</h1>');
+});
 
 app.get("/api/persons", (request, response) => {
   response.json(persons);
