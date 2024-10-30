@@ -1,11 +1,16 @@
 const express = require("express");
-const morgan = require('morgan')
+const morgan = require("morgan");
 const app = express();
+const cors = require("cors");
 
 app.use(express.json());
 
-morgan.token('body', (req) => JSON.stringify(req.body));
-app.use(morgan(':method :url :status :res[content-length] - :response-time ms :body'));
+morgan.token("body", (req) => JSON.stringify(req.body));
+app.use(
+  morgan(":method :url :status :res[content-length] - :response-time ms :body")
+);
+
+app.use(cors());
 
 let persons = [
   {
@@ -60,33 +65,33 @@ const generateId = () => {
 };
 
 app.post("/api/persons", (request, response) => {
-    const body = request.body;
-  
-    if (!body.name || !body.number) {
-      return response.status(400).json({
-        error: "name or number missing",
-      });
-    }
-  
-    const nameExists = persons.some((person) => person.name === body.name);
-  
-    if (nameExists) {
-      return response.status(400).json({
-        error: "name must be unique",
-      });
-    }
-  
-    const person = {
-      name: body.name,
-      number: body.number,
-      id: generateId(),
-    };
-  
-    persons = persons.concat(person);
-    response.json(person);
-  });
-  
-const PORT = 3001;
+  const body = request.body;
+
+  if (!body.name || !body.number) {
+    return response.status(400).json({
+      error: "name or number missing",
+    });
+  }
+
+  const nameExists = persons.some((person) => person.name === body.name);
+
+  if (nameExists) {
+    return response.status(400).json({
+      error: "name must be unique",
+    });
+  }
+
+  const person = {
+    name: body.name,
+    number: body.number,
+    id: generateId(),
+  };
+
+  persons = persons.concat(person);
+  response.json(person);
+});
+
+const PORT = process.env.PORT || 3001;
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
 });
