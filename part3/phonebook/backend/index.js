@@ -2,9 +2,9 @@ const express = require("express");
 const morgan = require("morgan");
 const app = express();
 const cors = require("cors");
-require('dotenv').config()
+require("dotenv").config();
 
-const Person = require('./models/person')
+const Person = require("./models/person");
 
 app.use(express.json());
 
@@ -14,12 +14,12 @@ app.use(
 );
 
 app.use(cors());
-app.use(express.static('dist'))
+app.use(express.static("dist"));
 
 app.get("/api/persons", (request, response) => {
-  Person.find({}).then(persons => {
-    response.json(persons)
-  })
+  Person.find({}).then((persons) => {
+    response.json(persons);
+  });
 });
 
 app.get("/api/info", (request, response) => {
@@ -30,19 +30,18 @@ app.get("/api/info", (request, response) => {
 });
 
 app.get("/api/persons/:id", (request, response, next) => {
-  Person.findById(request.params.id)
-    .then(person => {
-      if (person) {
-        response.json(person)
-      } else {
-        response.status(404).end()
-      }
-    })
+  Person.findById(request.params.id).then((person) => {
+    if (person) {
+      response.json(person);
+    } else {
+      response.status(404).end();
+    }
+  });
 });
 
 app.delete("/api/persons/:id", (request, response) => {
-  const id = Number(request.params.id)
-  persons = persons.filter((person) => person.id !== id)
+  const id = Number(request.params.id);
+  persons = persons.filter((person) => person.id !== id);
   response.status(204).end;
 });
 
@@ -63,30 +62,30 @@ app.post("/api/persons", (request, response) => {
     });
   }
 
+  const person = new Person({
+    name: body.name,
+    number: body.number,
+  });
+
+  person.save().then((savedPerson) => {
+    response.json(savedPerson);
+  });
+});
+
+app.put("/api/persons/:id", (request, response, next) => {
+  const body = request.body;
+
   const person = {
     name: body.name,
     number: body.number,
   };
 
-  persons = persons.concat(person);
-  response.json(person);
-});
-
-app.put('/api/persons/:id', (request, response, next) => {
-  const body = request.body
-
-  const person = {
-    name: body.name,
-    number: body.number,
-  }
-
   Person.findByIdAndUpdate(request.params.id, person, { new: true })
-    .then(updatedPerson => {
-      response.json(updatedPerson)
+    .then((updatedPerson) => {
+      response.json(updatedPerson);
     })
-    .catch(error => next(error))
-})
-
+    .catch((error) => next(error));
+});
 
 const PORT = process.env.PORT;
 app.listen(PORT, () => {
