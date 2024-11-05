@@ -1,7 +1,3 @@
-# Phonebook Application
-
-Esta es una aplicación de agenda telefónica desplegada en Render.
-
 ## URL de la Aplicación
 
 Puedes acceder a la aplicación en la siguiente dirección:
@@ -14,7 +10,7 @@ Puedes acceder a la aplicación en la siguiente dirección:
 1. **Iniciar el Backend Localmente**:
    - Navega a la carpeta `backend` y ejecuta:
      ```sh
-     cd phonebook/backend
+     cd example/backend
      npm start
      ```
 
