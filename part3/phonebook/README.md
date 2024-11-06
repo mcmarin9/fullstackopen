@@ -11,17 +11,27 @@ Puedes acceder a la aplicación en la siguiente dirección:
 
 ### Desarrollo Local
 
-1. **Iniciar el Backend Localmente**:
+1. **Instalar Dependencias**:
+   - Navega a las carpetas `backend` y `frontend` y ejecuta:
+     ```sh
+     cd phonebook/backend
+     npm install
+     cd ../frontend
+     npm install
+     ```
+
+2. **Iniciar el Backend Localmente**:
    - Navega a la carpeta `backend` y ejecuta:
      ```sh
      cd phonebook/backend
      npm start
      ```
+     Puedo usar 'npm run dev' si tengo nodemon
 
-2. **Iniciar el Frontend Localmente**:
-   - Navega a la carpeta `frontend` y ejecuta:
+3. **Iniciar el Frontend Localmente**:
+   - En una nueva terminal, navega a la carpeta `frontend` y ejecuta:
      ```sh
-     cd ../frontend
+     cd phonebook/frontend
      npm run dev
      ```
 
@@ -30,19 +40,27 @@ Puedes acceder a la aplicación en la siguiente dirección:
 1. **Construir el Frontend**:
    - Navega a la carpeta `frontend` y ejecuta:
      ```sh
-     cd ../frontend
+     cd phonebook/frontend
      npm run build
      ```
 
 2. **Mover la Carpeta `dist` al Backend**:
    - Navega a la carpeta `backend` y ejecuta:
      ```sh
-     cd ../backend
+     cd phonebook/backend
      npm run build:ui
      ```
 
-3. **Hacer Commit y Push de los Cambios**:
+3. **Iniciar el Backend Localmente**:
+   - Asegúrate de que el backend está corriendo localmente:
+     ```sh
+     cd phonebook/backend
+     npm start
+     ```
+
+4. **Hacer Commit y Push de los Cambios**:
    - Asegúrate de que los cambios están listos para ser desplegados y ejecuta:
      ```sh
-        npm run deploy:full
+     cd phonebook/backend
+     npm run deploy:full
      ```
