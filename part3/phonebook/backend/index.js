@@ -13,14 +13,14 @@ app.use(express.static("dist"));
 
 // MIDDLEWARE DETAILS
 const requestLogger = (request, response, next) => {
-  console.log('Method:', request.method)
-  console.log('Path:  ', request.path)
-  console.log('Body:  ', request.body)
-  console.log('---')
-  next()
-}
+  console.log("Method:", request.method);
+  console.log("Path:  ", request.path);
+  console.log("Body:  ", request.body);
+  console.log("---");
+  next();
+};
 
-app.use(requestLogger)
+app.use(requestLogger);
 
 morgan.token("body", (req) => JSON.stringify(req.body));
 app.use(
@@ -29,19 +29,19 @@ app.use(
 
 // MIDDLEWARE ENDPOINTS
 const unknownEndpoint = (request, response) => {
-  response.status(404).send({ error: 'unknown endpoint' });
+  response.status(404).send({ error: "unknown endpoint" });
 };
 
 // MIDDLEWARE ERRORS
 const errorHandler = (error, request, response, next) => {
   console.error(error.message);
 
-  if (error.name === 'CastError') {
-    return response.status(400).send({ error: 'malformatted id' });
-  } else if (error.name === 'ValidationError') {
-    return response.status(400).json({ error: error.message })
+  if (error.name === "CastError") {
+    return response.status(400).send({ error: "malformatted id" });
+  } else if (error.name === "ValidationError") {
+    return response.status(400).json({ error: error.message });
   }
-  
+
   next(error);
 };
 
@@ -56,9 +56,11 @@ app.get("/api/persons", (request, response, next) => {
 
 app.get("/api/info", (request, response, next) => {
   Person.countDocuments({})
-    .then(count => {
+    .then((count) => {
       const date = new Date();
-      response.send(`<p>Phonebook has info for ${count} people</p> <p>${date}</p>`);
+      response.send(
+        `<p>Phonebook has info for ${count} people</p> <p>${date}</p>`
+      );
     })
     .catch((error) => next(error));
 });
@@ -87,7 +89,7 @@ app.post("/api/persons", (request, response, next) => {
   const body = request.body;
 
   Person.findOne({ name: body.name })
-    .then(existingPerson => {
+    .then((existingPerson) => {
       if (existingPerson) {
         return response.status(400).json({
           error: "name must be unique",
@@ -101,29 +103,27 @@ app.post("/api/persons", (request, response, next) => {
 
       person
         .save()
-        .then(savedPerson => {
+        .then((savedPerson) => {
           response.json(savedPerson);
         })
-        .catch(error => next(error));
+        .catch((error) => next(error));
     })
-    .catch(error => next(error));
+    .catch((error) => next(error));
 });
 
 app.put("/api/persons/:id", (request, response, next) => {
-  const body = request.body;
+  const { name, number } = request.body;
 
-  const person = {
-    name: body.name,
-    number: body.number,
-  };
-
-  Person.findByIdAndUpdate(request.params.id, person, { new: true })
+  Person.findByIdAndUpdate(
+    request.params.id,
+    { name, number },
+    { new: true, runValidators: true, context: "query" }
+  )
     .then((updatedPerson) => {
       response.json(updatedPerson);
     })
     .catch((error) => next(error));
 });
-
 
 // ERRORS
 app.use(unknownEndpoint);
