@@ -1,21 +1,49 @@
 const express = require("express");
 const morgan = require("morgan");
-const app = express();
 const cors = require("cors");
 require("dotenv").config();
 
+const app = express();
 const Person = require("./models/person");
 
+// MIDDLEWARE
 app.use(express.json());
+app.use(cors());
+app.use(express.static("dist"));
+
+// MIDDLEWARE DETAILS
+const requestLogger = (request, response, next) => {
+  console.log('Method:', request.method)
+  console.log('Path:  ', request.path)
+  console.log('Body:  ', request.body)
+  console.log('---')
+  next()
+}
+
+app.use(requestLogger)
 
 morgan.token("body", (req) => JSON.stringify(req.body));
 app.use(
   morgan(":method :url :status :res[content-length] - :response-time ms :body")
 );
 
-app.use(cors());
-app.use(express.static("dist"));
+// MIDDLEWARE ENDPOINTS
+const unknownEndpoint = (request, response) => {
+  response.status(404).send({ error: 'unknown endpoint' });
+};
 
+// MIDDLEWARE ERRORS
+const errorHandler = (error, request, response, next) => {
+  console.error(error.message);
+
+  if (error.name === 'CastError') {
+    return response.status(400).send({ error: 'malformatted id' });
+  }
+
+  next(error);
+};
+
+// ROUTES
 app.get("/api/persons", (request, response, next) => {
   Person.find({})
     .then((persons) => {
@@ -99,23 +127,12 @@ app.put("/api/persons/:id", (request, response, next) => {
     .catch((error) => next(error));
 });
 
-const unknownEndpoint = (request, response) => {
-  response.status(404).send({ error: 'unknown endpoint' });
-};
 
-const errorHandler = (error, request, response, next) => {
-  console.error(error.message);
-
-  if (error.name === 'CastError') {
-    return response.status(400).send({ error: 'malformatted id' });
-  }
-
-  next(error);
-};
-
+// ERRORS
 app.use(unknownEndpoint);
 app.use(errorHandler);
 
+//PORTS
 const PORT = process.env.PORT || 3001;
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
