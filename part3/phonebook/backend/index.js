@@ -27,24 +27,6 @@ app.use(
   morgan(':method :url :status :res[content-length] - :response-time ms :body')
 ) 
 
-// MIDDLEWARE ENDPOINTS
-const unknownEndpoint = (request, response) => {
-  response.status(404).send({ error: 'unknown endpoint' }) 
-} 
-
-// MIDDLEWARE ERRORS
-const errorHandler = (error, request, response, next) => {
-  console.error(error.message) 
-
-  if (error.name === 'CastError') {
-    return response.status(400).send({ error: 'malformatted id' }) 
-  } else if (error.name === 'ValidationError') {
-    return response.status(400).json({ error: error.message }) 
-  }
-
-  next(error) 
-} 
-
 // ROUTES
 app.get('/api/persons', (request, response, next) => {
   Person.find({})
@@ -126,7 +108,25 @@ app.put('/api/persons/:id', (request, response, next) => {
     .catch((error) => next(error)) 
 }) 
 
-// ERRORS
+
+// MIDDLEWARE ENDPOINTS
+const unknownEndpoint = (request, response) => {
+  response.status(404).send({ error: 'unknown endpoint' }) 
+} 
+
+// MIDDLEWARE ERRORS
+const errorHandler = (error, request, response, next) => {
+  console.error(error.message) 
+
+  if (error.name === 'CastError') {
+    return response.status(400).send({ error: 'malformatted id' }) 
+  } else if (error.name === 'ValidationError') {
+    return response.status(400).json({ error: error.message }) 
+  }
+
+  next(error) 
+} 
+
 app.use(unknownEndpoint) 
 app.use(errorHandler) 
 
