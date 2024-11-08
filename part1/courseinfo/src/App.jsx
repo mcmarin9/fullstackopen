@@ -1,6 +1,6 @@
 const Header = (props) => {
-  return <h1>{props.course.name}</h1>;
-};
+  return <h1>{props.course.name}</h1> 
+} 
 
 const Part = (props) => {
   console.log(props)
@@ -52,7 +52,7 @@ const App = () => {
       <Content parts={course.parts} />
       <Total parts={course.parts}/>
     </div>
-  );
-};
+  ) 
+} 
 
-export default App;
+export default App 

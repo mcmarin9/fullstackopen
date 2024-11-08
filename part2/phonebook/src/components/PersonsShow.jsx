@@ -1,4 +1,4 @@
-import React from "react";
+import React from "react" 
 
 const PersonsShow = ({ personsToShow, deletePerson }) => {
   return (
@@ -13,7 +13,7 @@ const PersonsShow = ({ personsToShow, deletePerson }) => {
         </div>
       ))}
     </>
-  );
-};
+  ) 
+} 
 
-export default PersonsShow;
+export default PersonsShow 

@@ -1,9 +1,9 @@
-import React from "react";
+import React from "react" 
 
-const Header = ({ courseName }) => <h1>{courseName}</h1>;
+const Header = ({ courseName }) => <h1>{courseName}</h1> 
 
 const Content = ({ parts }) => {
-  const total = parts.reduce((sum, part) => sum + part.exercises, 0);
+  const total = parts.reduce((sum, part) => sum + part.exercises, 0) 
 
   return (
     <div>
@@ -14,14 +14,14 @@ const Content = ({ parts }) => {
         <strong>total of {total} exercises</strong>
       </p>
     </div>
-  );
-};
+  ) 
+} 
 
 const Part = ({ name, exercises }) => (
   <p>
     {name} {exercises}
   </p>
-);
+) 
 
 const Course = ({ courses }) => {
   return (
@@ -33,7 +33,7 @@ const Course = ({ courses }) => {
         </div>
       ))}
     </div>
-  );
-};
+  ) 
+} 
 
-export default Course;
+export default Course 

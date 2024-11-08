@@ -1,4 +1,4 @@
-import React from 'react';
+import React from 'react' 
 
 const Coincidences = ({ results, onShowCountry }) => {
   return (
@@ -10,7 +10,7 @@ const Coincidences = ({ results, onShowCountry }) => {
         </li>
       ))}
     </ul>
-  );
-};
+  ) 
+} 
 
-export default Coincidences;
+export default Coincidences 

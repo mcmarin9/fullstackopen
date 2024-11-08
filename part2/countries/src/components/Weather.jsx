@@ -1,20 +1,20 @@
-import React, { useState, useEffect } from "react";
-import axios from "axios";
+import React, { useState, useEffect } from "react" 
+import axios from "axios" 
 
 const Weather = ({ city }) => {
   const getWeather = (city) => {
-    const apiKey = import.meta.env.VITE_OPENWEATHER_API_KEY;
-    const url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`;
-    return axios.get(url).then((response) => response.data);
-  };
+    const apiKey = import.meta.env.VITE_OPENWEATHER_API_KEY 
+    const url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric` 
+    return axios.get(url).then((response) => response.data) 
+  } 
 
-  const [weather, setWeather] = useState(null);
+  const [weather, setWeather] = useState(null) 
 
   useEffect(() => {
     getWeather(city).then((data) => {
-      setWeather(data);
-    });
-  }, [city]);
+      setWeather(data) 
+    }) 
+  }, [city]) 
 
   return (
     <div>
@@ -33,7 +33,7 @@ const Weather = ({ city }) => {
         <p>Loading weather data...</p>
       )}
     </div>
-  );
-};
+  ) 
+} 
 
-export default Weather;
+export default Weather 

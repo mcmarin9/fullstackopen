@@ -1,5 +1,5 @@
-import React from "react";
-import Weather from "./Weather";
+import React from "react" 
+import Weather from "./Weather" 
 
 const OneCountry = ({country}) => {
     console.log(country.name)
@@ -19,7 +19,7 @@ const OneCountry = ({country}) => {
       <img src={country.flags.png} alt={country.flags.alt}/>
       <Weather city={country.capital}/>
     </div>
-  );
-};
+  ) 
+} 
 
-export default OneCountry;
+export default OneCountry 
