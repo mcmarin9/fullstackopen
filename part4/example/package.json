@@ -7,37 +7,41 @@
   "author": "MariCarmen",
   "license": "ISC",
   "scripts": {
-    "dev": "vite",
+    "start": "cross-env NODE_ENV=production node index.js",
+    "dev": "cross-env NODE_ENV=development nodemon index.js",
+    "test": "cross-env NODE_ENV=test node --test",
     "build": "vite build",
     "lint": "eslint .",
     "preview": "vite preview",
     "server": "json-server -p 3001 --watch db.json",
-    "start": "node index.js",
     "dev:backend": "nodemon index.js",
     "build:ui": "rm -rf dist && cd ../frontend && npm run build && cp -r dist ../backend",
     "deploy:full": "npm run build:ui && git add . && git commit -m uibuild && git push"
   },
   "dependencies": {
     "axios": "^1.7.7",
-    "react": "^18.3.1",
-    "react-dom": "^18.3.1",
     "cors": "^2.8.5",
     "dotenv": "^16.4.5",
     "express": "^4.21.1",
+    "express-async-errors": "^3.1.1",
+    "json-server": "^1.0.0-beta.3",
     "mongoose": "^8.8.0",
     "nodemon": "^3.1.7",
-    "json-server": "^1.0.0-beta.3"
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1"
   },
   "devDependencies": {
     "@eslint/js": "^9.11.1",
+    "@stylistic/eslint-plugin-js": "^2.10.1",
     "@types/react": "^18.3.10",
     "@types/react-dom": "^18.3.0",
     "@vitejs/plugin-react": "^4.3.2",
+    "cross-env": "^7.0.3",
     "eslint": "^9.11.1",
     "eslint-plugin-react": "^7.37.0",
     "eslint-plugin-react-hooks": "^5.1.0-rc.0",
     "eslint-plugin-react-refresh": "^0.4.12",
     "globals": "^15.12.0",
-    "@stylistic/eslint-plugin-js": "^2.10.1"
+    "supertest": "^7.0.0"
   }
 }
