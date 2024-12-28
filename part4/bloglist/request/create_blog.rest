@@ -1,0 +1,10 @@
+POST http://localhost:3001/api/blogs
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImJhcmJpZW1hbGlidSIsImlkIjoiNjc2ZGU2ZWQzMWRhZGMwM2RiYjkxMWNhIiwiaWF0IjoxNzM1MzM5NjMxLCJleHAiOjE3MzUzNDMyMzF9.oZ2X2QNk2uaRP4ZiNQ9noUt6AdjqLi3BRNtT3pe_9s0
+
+{
+  "title": "aaasaaaaaa?",
+  "author": "aaasdasa",
+  "url": "http://example.com/malfoy-voldemort",
+  "likes": 250
+}

@@ -1,0 +1,4 @@
+DELETE http://localhost:3001/api/blogs/676f306915585a98137486bd
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImJhcmJpZW1hbGlidSIsImlkIjoiNjc2ZGU2ZWQzMWRhZGMwM2RiYjkxMWNhIiwiaWF0IjoxNzM1MzM3ODgwLCJleHAiOjE3MzUzNDE0ODB9.UiBNQvI7GUMAo2LbZbSvZ3xsxVl2Ep2MN7Ud85r028I
+
+#not valid id blog: 676dee3d419588088296a5a6
